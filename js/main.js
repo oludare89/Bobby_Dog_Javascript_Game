@@ -10,6 +10,9 @@ window.addEventListener('load', function(){
             this.height = height;
         }
         update(){
+
+        }
+        draw(){
             
         }
     }
