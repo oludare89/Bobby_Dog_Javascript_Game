@@ -18,9 +18,9 @@ export class Player {
         this.states = [new Sitting(this), new Running(this), new Jumping(this), new Falling(this)];
         this.currentState = this.states[0];
         this.currentState.enter();
-        this.fps = 30;
+        this.fps = 20;
         this.frameTimer = 0;
-        this.frameInterval = this.fps * 0.001;
+        this.frameInterval = 1000/this.fps;
     }
     update(input, deltaTime){
         this.currentState.handleInput(input);
@@ -38,9 +38,9 @@ export class Player {
         else this.vy = 0;
         // sprite animation
         if (this.frameTimer > this.frameInterval){
+            this.frameTimer = 0;
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = 0;
-            this.frameTimer = 0;
         } else {
                 this.frameTimer += deltaTime
             }
