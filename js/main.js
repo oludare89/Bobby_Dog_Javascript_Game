@@ -17,19 +17,22 @@ window.addEventListener('load', function(){
         update(){
             this.player.update(this.input.keys);
         }
-        draw(context){
-            this.player.draw(context);
+        draw(context, deltaTime){
+            this.player.draw(context, deltaTime);
         }
     }
 
     const game = new Game(canvas.width, canvas.height);
     
-    function animate(){
+    let lastTime = 0;
+    function animate(timeStamp){
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.update();
-        game.draw(ctx);
+        game.draw(ctx, deltaTime);
         requestAnimationFrame(animate);
     }
 
-    animate();
+    animate(0);
 });
