@@ -22,7 +22,7 @@ export class Player {
         this.frameTimer = 0;
         this.frameInterval = this.fps * 0.001;
     }
-    update(input){
+    update(input, deltaTime){
         this.currentState.handleInput(input);
         // horizontal movement
         this.x += this.speed;
@@ -33,12 +33,10 @@ export class Player {
         if (this.x < 0) this.x = 0;
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
         // vertical movement
-        //if (input.includes('ArrowUp') && this.onGround()) this.vy -= 30;
         this.y += this.vy;
         if (!this.onGround()) this.vy += this.weight;
         else this.vy = 0;
-    }
-    draw(context, deltaTime){
+        // sprite animation
         if (this.frameTimer > this.frameInterval){
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = 0;
@@ -46,6 +44,8 @@ export class Player {
         } else {
                 this.frameTimer += deltaTime
             }
+    }
+    draw(context){
         context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
     }
     onGround(){
