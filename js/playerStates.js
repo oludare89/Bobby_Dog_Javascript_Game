@@ -2,6 +2,7 @@ const states = {
     SITTING: 0,
     RUNNING: 1,
     JUMPING: 2,
+    FALLING: 3,
 }
 
 class State {
@@ -38,6 +39,8 @@ export class Running extends State {
     handleInput(input){
         if (input.includes('ArrowDown')){
             this.player.setState(states.SITTING);
+        } else if (input.includes('ArrowUp')){
+            this.player.setState(states.JUMPING);
         }
     }
 }
@@ -48,12 +51,29 @@ export class Jumping extends State {
         this.player = player;
     }
     enter(){
+        if (this.player.onGround()) this.player.vy -= 30;
+        this.player.maxFrame = 6;
+        this.player.frameY = 1;
+    }
+    handleInput(input){
+        if (this.player.vy > this.player.weight){
+            this.player.setState(states.FALLING);
+        }
+    }
+}
+
+export class Falling extends State {
+    constructor(player){
+        super('FALLING');
+        this.player = player;
+    }
+    enter(){
         this.player.maxFrame = 6;
         this.player.frameY = 2;
     }
     handleInput(input){
-        if (input.includes('ArrowUp')){
-            
+        if (this.player.onGround()){
+            this.player.setState(states.RUNNING);
         }
     }
 }
