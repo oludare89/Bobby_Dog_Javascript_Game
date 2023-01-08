@@ -15,12 +15,12 @@ export class Player {
         this.maxFrame = 6;
         this.speed = 0;
         this.maxSpeed = 10;
-        this.states = [new Sitting(this), new Running(this), new Jumping(this), new Falling(this)];
-        this.currentState = this.states[0];
-        this.currentState.enter();
         this.fps = 20;
         this.frameTimer = 0;
         this.frameInterval = 1000/this.fps;
+        this.states = [new Sitting(this), new Running(this), new Jumping(this), new Falling(this)];
+        this.currentState = this.states[0];
+        this.currentState.enter();
     }
     update(input, deltaTime){
         this.currentState.handleInput(input);
