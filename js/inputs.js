@@ -9,7 +9,7 @@ export class InputHandler {
                     e.key === 'Enter'
                 ) && this.keys.indexOf(e.key) === -1){
                 this.keys.push(e.key);
-            }
+            } else if (e.key === 'd') this.game.debug = !this.game.debug;
         });
         window.addEventListener('keyup', e => {
             if (e.key === 'ArrowDown' ||
