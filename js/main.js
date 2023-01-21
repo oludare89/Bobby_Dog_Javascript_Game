@@ -14,7 +14,7 @@ window.addEventListener('load', function(){
         constructor(width, height){
             this.width = width;
             this.height = height;
-            this.groundMargin = 50;
+            this.groundMargin = 80;
             this.speed = 0;
             this.maxSpeed = 4;
             this.background = new Background(this);
@@ -23,6 +23,7 @@ window.addEventListener('load', function(){
             this.UI = new UI(this);
             this.enemies = [];
             this.particles = [];
+            this.maxParticles = 200;
             this.enemyTimer = 0;
             this.enemyInterval = 1000;
             this.debug = true;
@@ -49,7 +50,10 @@ window.addEventListener('load', function(){
             this.particles.forEach((particle, index) => {
                 particle.update(deltaTime);
                 if (particle.markedForDeletion) this.particles.splice(index, 1);
-            })
+            });
+            if (this.particles.length > this.maxParticles) {
+                this.particles = this.particles.slice(0, this.maxParticles);
+            };
         }
         draw(context){
             this.background.draw(context)
