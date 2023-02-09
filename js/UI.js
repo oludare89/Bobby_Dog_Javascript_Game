@@ -17,7 +17,7 @@ export class UI {
         context.fillText('Score: ' + this.game.score, 20, 50);
         // timer
         context.font = this.fontSize * 0.8 + 'px ' + this.fontFamily;
-        context.fillText('Time: ' + (this.game.time * 0.001).toFixed(1), 20, 80);
+        context.fillText('Time: ' + (this.game.time * 0.001).toFixed(2), 20, 80);
         // game over messages
         if (this.game.gameOver){
             context.textAlign = 'center';
